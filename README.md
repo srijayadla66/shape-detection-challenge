@@ -1,161 +1,67 @@
 # Shape Detection Challenge
 
-AI-free, browser-based geometric shape detection system using native JavaScript/TypeScript and mathematical image analysis.
+## Overview
 
-## 🎯 Overview
+This project is a browser-based geometric shape detection system that identifies and classifies shapes using pure mathematical algorithms.  
+It demonstrates how geometric logic and the HTML Canvas API can be used for image analysis without any AI or machine learning models.
 
-This project implements a complete shape detection system that:
-- Detects geometric shapes in images (circles, triangles, rectangles, squares, polygons)
-- Classifies shapes accurately using geometric rules
-- Returns bounding boxes, centers, areas, and confidence scores
-- Works entirely in the browser without external libraries or ML models
+---
 
-## 🚀 Quick Start
+## Features
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
+- Detects circles, triangles, rectangles, squares, and polygons  
+- Built entirely with React and native JavaScript  
+- Provides bounding boxes, center points, areas, and confidence scores  
+- Uses mathematical image analysis only, no external ML libraries  
+- Fast detection with average processing time under two seconds  
+- Responsive interface with drag-and-drop image upload  
+
+---
+
+## How It Works
+
+1. Converts the uploaded image to grayscale  
+2. Applies binary thresholding to separate objects from the background  
+3. Detects edges and traces contours using connected component analysis  
+4. Simplifies boundaries with the Douglas–Peucker algorithm  
+5. Classifies shapes based on geometric properties such as:
+   - Circularity and equal width/height for circles  
+   - Three vertices for triangles  
+   - Four vertices with unequal sides for rectangles  
+   - Four vertices with equal sides for squares  
+   - Five or more vertices for polygons  
+
+---
+
+## Technology Stack
+
+- React 19  
+- Tailwind CSS  
+- CRACO build configuration  
+- Lucide React for icons  
+- HTML Canvas API for pixel-level analysis  
+- Pure JavaScript for all shape detection logic  
+
+---
+
+## Getting Started
 
 ### Installation
 
-1. Install dependencies:
 ```bash
-npm install
-```
+cd frontend
+npm install --legacy-peer-deps
 
-2. **Important**: Compile TypeScript first:
-```bash
-npm run build
-```
-This creates the `dist/main.js` file that the browser needs.
+## Screenshots
 
-3. Start the development server:
-```bash
-npm run dev
-```
+### 1. Home Page
+![Home Page](frontend/public/screenshots/Homepage.png)
 
-4. Open your browser to `http://localhost:8080`
+### 2. Test Images
+![Test Images](frontend/public/screenshots/Testimages.png)
 
-**Note**: If you make changes to `src/main.ts`, you need to run `npm run build` again, or use `npm run watch` to automatically recompile on changes.
+### 3. Detection Results - Example 1
+![Detection Results 1](frontend/public/screenshots/detectionresults1.png)
 
-## 📁 Project Structure
-
-```
-shape-detection/
-├── src/
-│   ├── main.ts          # Core ShapeDetector implementation
-│   ├── app.js           # UI application logic
-│   └── style.css        # UI styling
-├── test-images/         # Test images directory
-├── expected_results.json # Ground-truth results (optional)
-├── index.html           # Browser UI
-├── package.json         # Dependencies
-├── tsconfig.json        # TypeScript configuration
-└── README.md           # This file
-```
-
-## 🔧 How It Works
-
-### Algorithm Steps
-
-1. **Preprocessing**: Convert RGB to grayscale using luminance formula
-2. **Thresholding**: Apply Otsu's method for optimal binary segmentation
-3. **Noise Reduction**: Median filter to remove noise
-4. **Edge Detection**: Sobel operator for edge detection
-5. **Contour Extraction**: Border following algorithm to trace shapes
-6. **Polygon Approximation**: Douglas-Peucker algorithm to simplify contours
-7. **Shape Classification**: Geometric analysis (circularity, vertex count, aspect ratio)
-8. **Feature Calculation**: Bounding box, center, area, confidence
-
-### Shape Classification Rules
-
-- **Circle**: Circularity > 0.7, aspect ratio ≈ 1.0
-- **Triangle**: 3 vertices
-- **Square**: 4 vertices, aspect ratio ≈ 1.0
-- **Rectangle**: 4 vertices, aspect ratio ≠ 1.0
-- **Polygon**: 5+ vertices
-
-## 📊 Output Format
-
-```json
-{
-  "shapes": [
-    {
-      "type": "circle",
-      "boundingBox": { "x": 120, "y": 85, "width": 50, "height": 50 },
-      "center": { "x": 145, "y": 110 },
-      "area": 1963.5,
-      "confidence": 0.95
-    }
-  ]
-}
-```
-
-## 🧪 Testing
-
-1. Place test images in the `test-images/` folder
-2. Upload images through the web interface
-3. Compare results with `expected_results.json` (if available)
-4. Validate:
-   - Shape count accuracy
-   - Classification correctness
-   - Bounding box IoU
-   - Center point accuracy
-   - Area calculation
-
-## ⚙️ Performance
-
-- Target: < 2000ms per image
-- Accuracy: ≥ 90% detection, ≥ 85% classification
-- Bounding Box IoU: ≥ 0.7
-- Center Accuracy: ≤ 10 pixels deviation
-- Area Error: ≤ 15% deviation
-
-## 🛠️ Development
-
-### Build
-```bash
-npm run build
-```
-
-### Watch Mode
-```bash
-npm run watch
-```
-
-### Development Server
-```bash
-npm run dev
-```
-
-## 📝 Technical Details
-
-### Key Algorithms
-
-- **Otsu's Thresholding**: Automatic optimal threshold selection
-- **Sobel Edge Detection**: Gradient-based edge detection
-- **Border Following**: Contour tracing algorithm
-- **Douglas-Peucker**: Polygon simplification
-- **Shoelace Formula**: Area calculation
-
-### Mathematical Formulas
-
-- **Grayscale**: `gray = 0.299*R + 0.587*G + 0.114*B`
-- **Circularity**: `(4π * area) / perimeter²`
-- **Aspect Ratio**: `width / height`
-
-## 🚫 Constraints
-
-- ❌ No external CV libraries (OpenCV, TensorFlow, etc.)
-- ❌ No pre-trained ML models
-- ✅ Only standard browser APIs and math-based logic
-- ✅ Handles rotation, small shapes, overlapping shapes, and noise
-
-## 📄 License
-
-MIT
-
-## 👤 Author
-
-Shape Detection Challenge Implementation
-
+### 4. Detection Results - Example 2
+![Detection Results 2](frontend/public/screenshots/detectionresults2.png)
