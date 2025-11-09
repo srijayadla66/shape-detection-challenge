@@ -1,0 +1,87 @@
+{
+  "test-image-1": {
+    "description": "Mixed geometric shapes",
+    "shapes": [
+      {
+        "type": "circle",
+        "approximateCenter": { "x": 150, "y": 150 },
+        "approximateArea": 20000,
+        "minConfidence": 0.85
+      },
+      {
+        "type": "square",
+        "approximateCenter": { "x": 370, "y": 150 },
+        "approximateArea": 19600,
+        "minConfidence": 0.85
+      },
+      {
+        "type": "rectangle",
+        "approximateCenter": { "x": 600, "y": 150 },
+        "approximateArea": 20000,
+        "minConfidence": 0.85
+      },
+      {
+        "type": "triangle",
+        "approximateCenter": { "x": 200, "y": 380 },
+        "approximateArea": 5000,
+        "minConfidence": 0.80
+      },
+      {
+        "type": "polygon",
+        "approximateCenter": { "x": 550, "y": 400 },
+        "approximateArea": 15000,
+        "minConfidence": 0.75
+      }
+    ]
+  },
+  "test-image-2": {
+    "description": "Multiple circles",
+    "shapes": [
+      {
+        "type": "circle",
+        "minConfidence": 0.85
+      },
+      {
+        "type": "circle",
+        "minConfidence": 0.85
+      },
+      {
+        "type": "circle",
+        "minConfidence": 0.85
+      },
+      {
+        "type": "circle",
+        "minConfidence": 0.85
+      }
+    ]
+  },
+  "test-image-3": {
+    "description": "Mixed polygons and basic shapes",
+    "shapes": [
+      {
+        "type": "square",
+        "minConfidence": 0.85
+      },
+      {
+        "type": "rectangle",
+        "minConfidence": 0.85
+      },
+      {
+        "type": "square",
+        "minConfidence": 0.85
+      },
+      {
+        "type": "triangle",
+        "minConfidence": 0.80
+      },
+      {
+        "type": "triangle",
+        "minConfidence": 0.80
+      },
+      {
+        "type": "polygon",
+        "minConfidence": 0.75
+      }
+    ]
+  }
+}

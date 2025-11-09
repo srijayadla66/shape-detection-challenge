@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Test Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        canvas {
+            border: 2px solid #333;
+            margin: 10px;
+            background: white;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Image Generator</h1>
+    <div class="controls">
+        <button onclick="generateImage1()">Generate Test 1 (Mixed Shapes)</button>
+        <button onclick="generateImage2()">Generate Test 2 (Circles)</button>
+        <button onclick="generateImage3()">Generate Test 3 (Polygons)</button>
+        <button onclick="downloadAll()">Download All Images</button>
+    </div>
+    
+    <div id="canvases"></div>
+
+    <script>
+        function createCanvas(id, width = 600, height = 400) {
+            const canvas = document.createElement('canvas');
+            canvas.id = id;
+            canvas.width = width;
+            canvas.height = height;
+            document.getElementById('canvases').appendChild(canvas);
+            return canvas;
+        }
+
+        function generateImage1() {
+            const canvas = createCanvas('test1', 800, 600);
+            const ctx = canvas.getContext('2d');
+            
+            // White background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Circle
+            ctx.fillStyle = '#FF6B6B';
+            ctx.beginPath();
+            ctx.arc(150, 150, 80, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw Square
+            ctx.fillStyle = '#4ECDC4';
+            ctx.fillRect(300, 80, 140, 140);
+            
+            // Draw Rectangle
+            ctx.fillStyle = '#95E1D3';
+            ctx.fillRect(500, 100, 200, 100);
+            
+            // Draw Triangle
+            ctx.fillStyle = '#FFA07A';
+            ctx.beginPath();
+            ctx.moveTo(150, 350);
+            ctx.lineTo(250, 350);
+            ctx.lineTo(200, 450);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw Pentagon
+            ctx.fillStyle = '#9B59B6';
+            drawPolygon(ctx, 550, 400, 70, 5);
+            
+            downloadCanvas(canvas, 'test-image-1.png');
+        }
+
+        function generateImage2() {
+            const canvas = createCanvas('test2', 800, 600);
+            const ctx = canvas.getContext('2d');
+            
+            // White background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Multiple circles
+            const circles = [
+                {x: 120, y: 120, r: 60, color: '#E74C3C'},
+                {x: 350, y: 150, r: 80, color: '#3498DB'},
+                {x: 600, y: 180, r: 70, color: '#2ECC71'},
+                {x: 200, y: 400, r: 90, color: '#F39C12'},
+            ];
+            
+            circles.forEach(c => {
+                ctx.fillStyle = c.color;
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            downloadCanvas(canvas, 'test-image-2.png');
+        }
+
+        function generateImage3() {
+            const canvas = createCanvas('test3', 800, 600);
+            const ctx = canvas.getContext('2d');
+            
+            // White background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Various rectangles and squares
+            ctx.fillStyle = '#E67E22';
+            ctx.fillRect(50, 50, 150, 150);
+            
+            ctx.fillStyle = '#16A085';
+            ctx.fillRect(250, 50, 200, 120);
+            
+            ctx.fillStyle = '#8E44AD';
+            ctx.fillRect(500, 70, 100, 100);
+            
+            // Triangles
+            ctx.fillStyle = '#C0392B';
+            ctx.beginPath();
+            ctx.moveTo(100, 350);
+            ctx.lineTo(200, 350);
+            ctx.lineTo(150, 250);
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.fillStyle = '#27AE60';
+            ctx.beginPath();
+            ctx.moveTo(350, 400);
+            ctx.lineTo(500, 400);
+            ctx.lineTo(425, 280);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Hexagon
+            ctx.fillStyle = '#2980B9';
+            drawPolygon(ctx, 650, 400, 80, 6);
+            
+            downloadCanvas(canvas, 'test-image-3.png');
+        }
+
+        function drawPolygon(ctx, x, y, radius, sides) {
+            ctx.beginPath();
+            for (let i = 0; i < sides; i++) {
+                const angle = (Math.PI * 2 / sides) * i - Math.PI / 2;
+                const px = x + radius * Math.cos(angle);
+                const py = y + radius * Math.sin(angle);
+                if (i === 0) {
+                    ctx.moveTo(px, py);
+                } else {
+                    ctx.lineTo(px, py);
+                }
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function downloadCanvas(canvas, filename) {
+            setTimeout(() => {
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }, 'image/png');
+            }, 100);
+        }
+
+        function downloadAll() {
+            document.getElementById('canvases').innerHTML = '';
+            generateImage1();
+            setTimeout(generateImage2, 500);
+            setTimeout(generateImage3, 1000);
+        }
+    </script>
+</body>
+</html>

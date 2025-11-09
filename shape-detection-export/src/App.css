@@ -1,0 +1,8 @@
+.App {
+  min-height: 100vh;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
